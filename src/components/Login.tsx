@@ -15,6 +15,8 @@ export function Login() {
   const [busy, setBusy] = useState(false)
   /** 가입은 됐지만 메일 인증이 남은 상태. 인증 링크가 어디로 가든 이 화면으로 돌아오면 된다. */
   const [pendingEmail, setPendingEmail] = useState<string | null>(null)
+  /** 계정이 없는 상태로 로그인을 시도했을 때 가입으로 안내한다. */
+  const [noAccountHint, setNoAccountHint] = useState(false)
 
   async function submit(event: React.FormEvent) {
     event.preventDefault()
@@ -36,7 +38,13 @@ export function Login() {
         }
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password })
-        if (error) throw new Error(describeAuthError(error.message))
+        if (error) {
+          // 처음 오신 분이 계정 없이 로그인을 누르는 경우가 가장 흔하다.
+          if (error.message.toLowerCase().includes('invalid login credentials')) {
+            setNoAccountHint(true)
+          }
+          throw new Error(describeAuthError(error.message))
+        }
       }
     } catch (error) {
       toast(error instanceof Error ? error.message : '로그인하지 못했습니다.', 'error')
@@ -194,6 +202,25 @@ export function Login() {
             {busy ? '처리 중…' : mode === 'signin' ? '로그인' : '가입하기'}
           </button>
         </form>
+
+        {noAccountHint && mode === 'signin' ? (
+          <div className="mt-3 rounded-xl border border-brand-500/40 bg-brand-500/8 p-3 text-xs leading-relaxed text-ink-300">
+            <p>
+              이 앱을 처음 쓰신다면 <span className="font-semibold text-ink-100">계정부터 만들어야</span>{' '}
+              합니다. 같은 이메일·비밀번호로 바로 가입할 수 있습니다.
+            </p>
+            <button
+              type="button"
+              className="btn-primary mt-2 w-full py-2.5 text-xs"
+              onClick={() => {
+                setNoAccountHint(false)
+                setMode('signup')
+              }}
+            >
+              이 이메일로 가입하기
+            </button>
+          </div>
+        ) : null}
 
         <div className="mt-3 flex items-center justify-between text-xs">
           <button
