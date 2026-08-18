@@ -65,6 +65,18 @@ npm run dev        # 개발 서버 http://localhost:5173
    ```
 
 4. 앱을 다시 실행하면 로그인 화면이 나타납니다. (이메일+비밀번호 또는 메일 로그인 링크)
+5. **Authentication → URL Configuration** 에서 Site URL 을 배포 주소로 바꾸고, Redirect URLs 에
+   로컬 주소를 추가합니다. 기본값이 `http://localhost:3000` 이라 그대로 두면 가입 확인 메일과
+   로그인 링크가 엉뚱한 곳으로 갑니다.
+
+   | 항목 | 값 |
+   | --- | --- |
+   | Site URL | `https://inyeon-paybook.vercel.app` |
+   | Redirect URLs | `http://localhost:4173/**`, `http://localhost:5173/**` |
+
+   기본 설정은 가입 시 메일 인증을 요구합니다(`mailer_autoconfirm: false`). 혼자 쓰는 앱이라
+   번거롭다면 **Authentication → Sign In / Providers → Email** 에서 `Confirm email` 을 끄면
+   가입 즉시 로그인됩니다.
 
 > 이미 로컬에 쌓아둔 기록이 있다면, 로그인 후 **설정 → 로컬 기록 올리기** 로 계정에 옮길 수 있습니다.
 > `anon key` 는 공개되어도 되는 키입니다. `service_role` 키는 절대 넣지 마세요 — 모든 접근은 RLS 로 본인 데이터만 허용됩니다.
