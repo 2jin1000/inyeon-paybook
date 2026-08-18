@@ -1,0 +1,5 @@
+# 저장소에는 LF 로 보관하고, 윈도우 실행 파일만 CRLF 로 체크아웃한다.
+* text=auto eol=lf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+*.png binary

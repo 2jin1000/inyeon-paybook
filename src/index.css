@@ -1,0 +1,106 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-ink-950: #070b14;
+  --color-ink-900: #0b1220;
+  --color-ink-850: #111a2c;
+  --color-ink-800: #16203a;
+  --color-ink-700: #1f2c4d;
+  --color-ink-600: #2b3b63;
+  --color-ink-400: #6b7ba3;
+  --color-ink-300: #98a5c4;
+  --color-ink-100: #e6ecf8;
+
+  --color-brand-500: #6c8cff;
+  --color-brand-400: #8aa4ff;
+  --color-brand-600: #4f6ff0;
+
+  --color-warm-500: #ff9d5c;
+  --color-mint-500: #3fd6a8;
+  --color-rose-500: #ff6b8b;
+
+  --font-sans:
+    'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI',
+    'Malgun Gothic', Roboto, 'Apple SD Gothic Neo', sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-ink-950);
+  color: var(--color-ink-100);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
+}
+
+/* 숫자 입력에서 스피너 제거 */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* 날짜 입력 아이콘을 다크 테마에 맞춤 */
+input[type='date']::-webkit-calendar-picker-indicator {
+  filter: invert(0.8);
+  cursor: pointer;
+}
+
+@utility safe-bottom {
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--tw-safe-extra, 0px));
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-ink-800 bg-ink-900/80 p-4 shadow-lg shadow-black/20;
+  }
+
+  .field-label {
+    @apply mb-1.5 block text-sm font-medium text-ink-300;
+  }
+
+  .field {
+    @apply w-full rounded-xl border border-ink-700 bg-ink-850 px-3.5 py-3 text-base text-ink-100
+      outline-none transition placeholder:text-ink-400 focus:border-brand-500
+      focus:ring-2 focus:ring-brand-500/30;
+  }
+
+  /* .btn 은 기본형이고 -primary/-ghost 는 색만 더한다.
+     (Tailwind v4 에서는 컴포넌트 클래스끼리 @apply 할 수 없어 클래스를 함께 붙여 쓴다.) */
+  .btn,
+  .btn-primary,
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold
+      transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply bg-brand-500 text-white hover:bg-brand-600;
+  }
+
+  .btn-ghost {
+    @apply border border-ink-700 bg-ink-850 text-ink-100 hover:bg-ink-800;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium;
+  }
+}
+
+/* 스크롤바 (데스크톱) */
+@media (pointer: fine) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-ink-700) transparent;
+  }
+}

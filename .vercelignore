@@ -1,0 +1,8 @@
+node_modules
+dist
+tests
+scripts
+supabase
+*.cmd
+.env
+.env.local

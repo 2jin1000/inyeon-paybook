@@ -1,0 +1,15 @@
+node_modules
+dist
+dist-ssr
+.vite
+*.tsbuildinfo
+*.local
+.DS_Store
+*.log
+
+# 환경변수 (.env.example 만 공유한다)
+.env*
+!.env.example
+
+# Vercel 링크 정보 / OIDC 토큰
+.vercel

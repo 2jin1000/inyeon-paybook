@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="인연 페이북">
+  <rect width="512" height="512" fill="#0b1220" />
+  <g>
+    <rect x="102" y="154" width="308" height="226" rx="20" fill="#f0f3fa" />
+    <path d="M102 174 L256 268 L410 174 L410 154 L102 154 Z" fill="#c8d2e6" />
+    <rect x="233" y="154" width="46" height="226" fill="#d55181" />
+  </g>
+</svg>

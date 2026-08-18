@@ -1,0 +1,33 @@
+{
+  "name": "inyeon-paybook",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "인연 페이북 - 경조사 관리 매니저",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "start": "npm run build && vite preview --host --port 4173 --strictPort",
+    "preview": "vite preview --host --port 4173 --strictPort",
+    "typecheck": "tsc -b --noEmit",
+    "test": "esbuild tests/smoke.test.ts --bundle --platform=node --format=esm --external:xlsx --outfile=node_modules/.cache/smoke.mjs --log-level=error && node node_modules/.cache/smoke.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.4",
+    "idb-keyval": "^6.2.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "recharts": "^2.15.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.6.3",
+    "vite": "^6.0.7",
+    "vite-plugin-pwa": "^0.21.1"
+  }
+}
