@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+﻿import { useEffect, useState } from 'react'
 import { AppProvider, useApp } from './store'
 import type { EventRecord } from './types'
 import { Dashboard } from './pages/Dashboard'
@@ -89,7 +89,7 @@ function Shell() {
       </header>
 
       {error ? (
-        <div className="mx-4 mt-3 rounded-xl border border-rose-500/40 bg-rose-500/10 p-3 text-xs text-rose-100">
+        <div className="mx-4 mt-3 rounded-xl border border-rose-500/40 bg-rose-500/10 p-3 text-xs text-rose-500">
           {error}
           <button
             type="button"

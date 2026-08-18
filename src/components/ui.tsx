@@ -36,12 +36,12 @@ export function ToastProvider({ children }: { children: ReactNode }) {
           <div
             key={toast.id}
             role="status"
-            className={`pointer-events-auto w-full max-w-sm rounded-xl border px-4 py-3 text-sm shadow-xl backdrop-blur ${
+            className={`pointer-events-auto w-full max-w-sm rounded-xl border px-4 py-3 text-sm shadow-lg backdrop-blur ${
               toast.tone === 'error'
-                ? 'border-rose-500/40 bg-rose-500/15 text-rose-100'
+                ? 'border-rose-500/40 bg-rose-500/10 text-rose-500'
                 : toast.tone === 'info'
-                  ? 'border-ink-600 bg-ink-850/95 text-ink-100'
-                  : 'border-mint-500/40 bg-mint-500/15 text-mint-500'
+                  ? 'border-ink-700 bg-ink-900/95 text-ink-100'
+                  : 'border-mint-500/40 bg-mint-500/10 text-mint-500'
             }`}
           >
             {toast.message}
@@ -181,9 +181,14 @@ export function TypeBadge({ type, size = 'md' }: { type: EventType; size?: 'sm' 
   const meta = EVENT_META[type]
   return (
     <span
-      className={`chip ${size === 'sm' ? 'text-[11px]' : 'text-xs'}`}
-      style={{ backgroundColor: `${meta.color}22`, color: meta.color }}
+      className={`chip text-ink-300 ${size === 'sm' ? 'text-[11px]' : 'text-xs'}`}
+      style={{ backgroundColor: `${meta.color}24` }}
     >
+      <span
+        aria-hidden
+        className="h-1.5 w-1.5 rounded-full"
+        style={{ backgroundColor: meta.color }}
+      />
       <span aria-hidden>{meta.emoji}</span>
       {type}
     </span>
@@ -224,7 +229,7 @@ export function Sheet({
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center">
       <div
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        className="absolute inset-0 bg-ink-100/35 backdrop-blur-sm"
         onClick={onClose}
         aria-hidden
       />
@@ -278,7 +283,7 @@ export function ConfirmDialog({
   if (!open) return null
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-6">
-      <div className="absolute inset-0 bg-black/70" onClick={onCancel} aria-hidden />
+      <div className="absolute inset-0 bg-ink-100/40" onClick={onCancel} aria-hidden />
       <div
         role="alertdialog"
         aria-modal="true"

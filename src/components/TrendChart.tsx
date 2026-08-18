@@ -3,9 +3,9 @@ import type { MonthPoint } from '../lib/stats'
 import { formatMonthKey, formatWon } from '../lib/format'
 
 /** 계열이 하나뿐이라 범례 없이 제목이 계열을 설명한다. 색도 하나만 쓰고 최고치만 진하게 둔다. */
-const SERIES = '#3987e5'
-const AXIS_INK = '#6b7ba3'
-const GRID_INK = '#1f2c4d'
+const SERIES = '#2a78d6'
+const AXIS_INK = '#6b7385'
+const GRID_INK = '#e3e8f2'
 
 export default function TrendChart({ data }: { data: MonthPoint[] }) {
   const max = Math.max(...data.map((point) => point.total), 0)
@@ -23,12 +23,12 @@ export default function TrendChart({ data }: { data: MonthPoint[] }) {
             interval="preserveStartEnd"
           />
           <Tooltip
-            cursor={{ fill: 'rgba(255,255,255,0.05)' }}
+            cursor={{ fill: 'rgba(17,24,39,0.05)' }}
             content={({ active, payload }) => {
               if (!active || !payload?.length) return null
               const point = payload[0].payload as MonthPoint
               return (
-                <div className="rounded-lg border border-ink-700 bg-ink-850 px-3 py-2 text-xs shadow-xl">
+                <div className="rounded-lg border border-ink-700 bg-ink-900 px-3 py-2 text-xs shadow-lg">
                   <p className="font-semibold text-ink-100">{formatMonthKey(point.key)}</p>
                   <p className="mt-0.5 tabular-nums text-ink-300">
                     {formatWon(point.total)}원 · {point.count}건

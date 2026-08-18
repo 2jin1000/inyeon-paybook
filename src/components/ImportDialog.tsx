@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react'
+﻿import { useMemo, useRef, useState } from 'react'
 import { useApp } from '../store'
 import { displayName } from '../types'
 import { formatWon } from '../lib/format'
@@ -194,7 +194,7 @@ export function ImportDialog({ open, onClose }: { open: boolean; onClose: () => 
                 </span>
               </div>
               {converted.drafts.length === 0 ? (
-                <p className="rounded-xl border border-rose-500/30 bg-rose-500/10 p-3 text-xs text-rose-100">
+                <p className="rounded-xl border border-rose-500/30 bg-rose-500/10 p-3 text-xs text-rose-500">
                   가져올 수 있는 행이 없습니다. 날짜와 성명 컬럼 연결을 확인해 주세요.
                 </p>
               ) : (

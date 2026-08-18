@@ -109,7 +109,7 @@ export function People({ onSelect }: { onSelect: (record: EventRecord) => void }
                 .sort((a, b) => (a.event_date < b.event_date ? 1 : -1))
                 .map((record) => (
                   <li key={record.id} className="relative">
-                    <span className="absolute -left-[27px] top-1.5 h-3 w-3 rounded-full border-2 border-ink-900 bg-brand-500" />
+                    <span className="absolute -left-[27px] top-1.5 h-3 w-3 rounded-full border-2 border-ink-900 bg-brand-500 ring-1 ring-ink-800" />
                     <button
                       type="button"
                       className="w-full rounded-xl border border-ink-800 bg-ink-850 p-3 text-left transition hover:border-ink-600"

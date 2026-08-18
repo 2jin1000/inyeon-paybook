@@ -14,7 +14,7 @@ import { EmptyState, Meter, Segmented, Spinner, TypeBadge } from '../components/
 import { EventCard } from '../components/EventCard'
 
 /** 차트 계열 색(단일 색). 크기 비교가 목적이라 분류별로 색을 나누지 않고 라벨로 구분한다. */
-const SERIES = '#3987e5'
+const SERIES = '#2a78d6'
 
 // 차트 라이브러리는 첫 화면 로딩을 늦추지 않도록 따로 내려받는다.
 const TrendChart = lazy(() => import('../components/TrendChart'))
@@ -71,7 +71,7 @@ export function Dashboard({ onSelect }: { onSelect: (record: EventRecord) => voi
   return (
     <div className="space-y-4 px-4 pb-6">
       {/* 이번 달 / 올해 누적 */}
-      <section className="card bg-gradient-to-br from-ink-850 to-ink-900">
+      <section className="card bg-gradient-to-br from-brand-500/8 to-ink-900">
         <p className="text-sm text-ink-300">이번 달 지출</p>
         <p className="mt-1 text-4xl font-extrabold tabular-nums text-ink-100">
           {formatWon(monthSummary.total)}

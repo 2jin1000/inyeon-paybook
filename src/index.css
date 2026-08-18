@@ -1,23 +1,29 @@
 @import 'tailwindcss';
 
+/*
+ * 라이트 테마.
+ * ink 스케일은 "숫자가 클수록 배경 쪽, 작을수록 글자 쪽"이라는 의미를 유지한다.
+ * (950 = 페이지 배경, 900 = 카드 표면, 100 = 본문 글자)
+ * 강조색은 흰 배경에서 대비를 확보한 어두운 단계로 잡았다.
+ */
 @theme {
-  --color-ink-950: #070b14;
-  --color-ink-900: #0b1220;
-  --color-ink-850: #111a2c;
-  --color-ink-800: #16203a;
-  --color-ink-700: #1f2c4d;
-  --color-ink-600: #2b3b63;
-  --color-ink-400: #6b7ba3;
-  --color-ink-300: #98a5c4;
-  --color-ink-100: #e6ecf8;
+  --color-ink-950: #f4f6fb; /* 페이지 배경 */
+  --color-ink-900: #ffffff; /* 카드 표면 */
+  --color-ink-850: #f1f4fa; /* 입력창·보조 면 */
+  --color-ink-800: #e3e8f2; /* 옅은 경계선 */
+  --color-ink-700: #cfd6e4; /* 경계선 */
+  --color-ink-600: #a9b3c7; /* 강조 경계선 */
+  --color-ink-400: #666e7f; /* 보조 글자 (흰 카드 5.1:1, 옅은 면 4.7:1) */
+  --color-ink-300: #465063; /* 본문 보조 글자 */
+  --color-ink-100: #111827; /* 본문 글자 */
 
-  --color-brand-500: #6c8cff;
-  --color-brand-400: #8aa4ff;
-  --color-brand-600: #4f6ff0;
+  --color-brand-500: #256abf; /* 흰 글자 버튼 배경 (5.4:1) */
+  --color-brand-400: #1c5cab; /* 링크·활성 탭 글자 — 밝은 배경에서 읽히도록 어둡게 */
+  --color-brand-600: #1f5fae;
 
-  --color-warm-500: #ff9d5c;
-  --color-mint-500: #3fd6a8;
-  --color-rose-500: #ff6b8b;
+  --color-warm-500: #a35a08;
+  --color-mint-500: #067a55;
+  --color-rose-500: #c62a4f;
 
   --font-sans:
     'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI',
@@ -25,7 +31,7 @@
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 html,
@@ -50,10 +56,9 @@ input[type='number']::-webkit-inner-spin-button {
   margin: 0;
 }
 
-/* 날짜 입력 아이콘을 다크 테마에 맞춤 */
 input[type='date']::-webkit-calendar-picker-indicator {
-  filter: invert(0.8);
   cursor: pointer;
+  opacity: 0.6;
 }
 
 @utility safe-bottom {
@@ -62,7 +67,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
 
 @layer components {
   .card {
-    @apply rounded-2xl border border-ink-800 bg-ink-900/80 p-4 shadow-lg shadow-black/20;
+    @apply rounded-2xl border border-ink-800 bg-ink-900 p-4 shadow-sm;
   }
 
   .field-label {

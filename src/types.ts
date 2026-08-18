@@ -4,18 +4,19 @@ export const EVENT_TYPES = ['부고', '결혼', '개업', '축하', '병문안',
 export type EventType = (typeof EVENT_TYPES)[number]
 
 /**
- * 분류별 배지 색상 / 아이콘.
- * 다크 배경(#0b1220)에서 대비 3:1 이상을 통과하는 값들이며, 배지에는 항상 분류 이름이
- * 함께 표시되므로 색만으로 구분을 강요하지 않는다. (차트는 단일 색 + 직접 라벨을 쓴다.)
+ * 분류별 배지 색상 / 아이콘 (밝은 배경 기준).
+ * 색은 배지 배경을 옅게 물들이는 용도이고, 식별은 항상 이름과 이모지가 담당한다.
+ * 글자는 색이 아니라 본문 색을 쓰므로 색각 이상이나 흑백 출력에서도 읽힌다.
+ * (차트도 단일 색 + 직접 라벨을 쓴다.)
  */
 export const EVENT_META: Record<EventType, { color: string; emoji: string }> = {
-  부고: { color: '#3987e5', emoji: '🕯️' },
-  결혼: { color: '#d55181', emoji: '💍' },
-  개업: { color: '#d95926', emoji: '🎉' },
-  축하: { color: '#c98500', emoji: '🎁' },
-  병문안: { color: '#199e70', emoji: '🏥' },
-  찬조: { color: '#9085e9', emoji: '🤝' },
-  기타: { color: '#8b94ad', emoji: '📌' },
+  부고: { color: '#2a78d6', emoji: '🕯️' },
+  결혼: { color: '#e87ba4', emoji: '💍' },
+  개업: { color: '#eb6834', emoji: '🎉' },
+  축하: { color: '#eda100', emoji: '🎁' },
+  병문안: { color: '#1baf7a', emoji: '🏥' },
+  찬조: { color: '#4a3aa7', emoji: '🤝' },
+  기타: { color: '#6b7385', emoji: '📌' },
 }
 
 /** 가져오기 시 만나는 표기 흔들림을 표준 분류로 정규화한다. */
