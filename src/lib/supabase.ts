@@ -30,6 +30,11 @@ export function describeAuthError(message: string): string {
   if (m.includes('email not confirmed'))
     return '이메일 인증이 아직 안 됐습니다. 메일의 확인 링크를 누른 뒤(빈 페이지가 나와도 정상) 다시 로그인해 주세요.'
   if (m.includes('user already registered')) return '이미 가입된 이메일입니다. 로그인해 주세요.'
+  // 앱이 아니라 Supabase 대시보드 설정 문제라, 어디를 봐야 하는지까지 알려준다.
+  if (m.includes('signups not allowed') || m.includes('signup is disabled') || m.includes('signups are disabled'))
+    return 'Supabase 에서 이메일 가입이 꺼져 있습니다. 대시보드 → Authentication → Sign In / Providers → Email 에서 "Enable Email provider" 를 켜 주세요.'
+  if (m.includes('email logins are disabled') || m.includes('email provider'))
+    return 'Supabase 에서 이메일 로그인이 꺼져 있습니다. 대시보드 → Authentication → Sign In / Providers → Email 을 활성화해 주세요.'
   if (m.includes('password should be at least')) return '비밀번호는 6자 이상이어야 합니다.'
   if (m.includes('rate limit') || m.includes('too many')) return '요청이 너무 잦습니다. 잠시 후 다시 시도해 주세요.'
   return message
