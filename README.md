@@ -47,7 +47,12 @@ npm run dev        # 개발 서버 http://localhost:5173
 > 이 PC 를 켜두지 않아도 언제 어디서든 쓰고 싶다면 아래 2번의 배포까지 진행하세요.
 > 배포하면 휴대폰에서 주소로 열고 홈 화면에 설치해 앱처럼 쓸 수 있습니다.
 
-## 2. 어디서든 접근하려면 (Supabase 연결)
+## 2. 어디서든 접근하려면 (Supabase 연결) — 이미 연결됨
+
+현재 `eventcost` 프로젝트(`ziwlfunxuhiecywmqjws`)에 연결되어 있고, 스키마도 적용된 상태입니다.
+로컬은 `.env`(커밋 제외), 배포는 Vercel 환경변수(production/preview/development)로 값을 주입합니다.
+아래는 새로 세팅하거나 다른 프로젝트로 옮길 때의 절차입니다.
+
 
 1. [supabase.com](https://supabase.com) 에서 프로젝트를 만듭니다.
 2. **SQL Editor** 에 [`supabase/schema.sql`](supabase/schema.sql) 전체를 붙여넣고 실행합니다.
