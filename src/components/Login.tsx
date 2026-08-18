@@ -13,6 +13,8 @@ export function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [busy, setBusy] = useState(false)
+  /** 가입은 됐지만 메일 인증이 남은 상태. 인증 링크가 어디로 가든 이 화면으로 돌아오면 된다. */
+  const [pendingEmail, setPendingEmail] = useState<string | null>(null)
 
   async function submit(event: React.FormEvent) {
     event.preventDefault()
@@ -20,9 +22,18 @@ export function Login() {
     setBusy(true)
     try {
       if (mode === 'signup') {
-        const { error } = await supabase.auth.signUp({ email, password })
+        const { data, error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: { emailRedirectTo: window.location.origin },
+        })
         if (error) throw new Error(describeAuthError(error.message))
-        toast('가입 완료. 메일 인증이 필요하면 받은 메일함을 확인해 주세요.')
+        if (data.session) {
+          // 메일 인증이 꺼져 있으면 곧바로 로그인된다.
+          toast('가입 완료. 바로 시작할 수 있습니다.')
+        } else {
+          setPendingEmail(email.trim())
+        }
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password })
         if (error) throw new Error(describeAuthError(error.message))
@@ -53,6 +64,85 @@ export function Login() {
     } finally {
       setBusy(false)
     }
+  }
+
+  async function resendConfirmation() {
+    if (!supabase || !pendingEmail) return
+    setBusy(true)
+    try {
+      const { error } = await supabase.auth.resend({
+        type: 'signup',
+        email: pendingEmail,
+        options: { emailRedirectTo: window.location.origin },
+      })
+      if (error) throw new Error(describeAuthError(error.message))
+      toast('확인 메일을 다시 보냈습니다.')
+    } catch (error) {
+      toast(error instanceof Error ? error.message : '메일을 보내지 못했습니다.', 'error')
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  // 가입 직후 안내 화면. 인증 링크가 다른 주소로 이동해도 당황하지 않도록 미리 설명한다.
+  if (pendingEmail) {
+    return (
+      <div className="flex min-h-dvh flex-col items-center justify-center px-6 py-10">
+        <div className="w-full max-w-sm text-center">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-500/15 text-3xl">
+            📮
+          </div>
+          <h1 className="mt-4 text-xl font-extrabold">확인 메일을 보냈습니다</h1>
+          <p className="mt-2 text-sm text-ink-300">
+            <span className="font-semibold text-ink-100">{pendingEmail}</span> 으로 보낸 메일에서
+            확인 링크를 눌러 주세요.
+          </p>
+
+          <ol className="mt-5 space-y-2 rounded-xl border border-ink-800 bg-ink-900 p-4 text-left text-xs leading-relaxed text-ink-300">
+            <li>
+              <span className="font-semibold text-ink-100">1.</span> 메일함(스팸함도 확인)에서 확인
+              링크를 누릅니다.
+            </li>
+            <li>
+              <span className="font-semibold text-ink-100">2.</span> 링크를 누른 뒤 빈 페이지나 오류
+              화면이 나와도 <span className="text-mint-500">인증은 정상 처리된 것</span>입니다.
+            </li>
+            <li>
+              <span className="font-semibold text-ink-100">3.</span> 그 창을 닫고 이 화면으로 돌아와
+              아래 버튼으로 로그인하세요.
+            </li>
+          </ol>
+
+          <button
+            type="button"
+            className="btn-primary mt-5 w-full"
+            onClick={() => {
+              setPendingEmail(null)
+              setMode('signin')
+            }}
+          >
+            인증했습니다 · 로그인하기
+          </button>
+          <div className="mt-3 flex items-center justify-center gap-4 text-xs">
+            <button
+              type="button"
+              className="text-ink-400 underline underline-offset-2"
+              onClick={() => void resendConfirmation()}
+              disabled={busy}
+            >
+              메일 다시 보내기
+            </button>
+            <button
+              type="button"
+              className="text-ink-400 underline underline-offset-2"
+              onClick={() => setPendingEmail(null)}
+            >
+              다른 이메일로 가입
+            </button>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
