@@ -3,6 +3,7 @@
 경조사 지출과 참여 내역을 기록하고 통계로 확인하는 반응형 웹앱입니다. PRD v1.0 기준으로 구현했습니다.
 
 **▶ 배포 주소: https://inyeon-paybook.vercel.app**
+**▶ 저장소: https://github.com/2jin1000/inyeon-paybook** — `main` 에 푸시하면 Vercel 이 자동 배포합니다.
 
 - 📱 **모바일 퍼스트 반응형** — 하단 탭 + 가운데 기록 버튼, PC 에서는 넓은 레이아웃
 - 🔌 **오프라인 우선** — PWA. 홈 화면에 설치되고, 네트워크가 없어도 열립니다
@@ -67,8 +68,17 @@ npm run dev        # 개발 서버 http://localhost:5173
 
 프로젝트: `dcs-kor/inyeon-paybook` · 주소: <https://inyeon-paybook.vercel.app>
 
+GitHub 저장소가 연결되어 있어 **`main` 에 푸시하면 자동으로 프로덕션 배포**됩니다.
+
 ```bash
-npx vercel deploy --prod     # 코드를 고친 뒤 다시 올릴 때
+git add -A && git commit -m "변경 내용"
+git push                     # → Vercel 이 빌드하고 배포까지 진행
+```
+
+수동으로 올리고 싶을 때만 아래를 씁니다.
+
+```bash
+npx vercel deploy --prod
 ```
 
 `vercel.json` 에 SPA 폴백과 캐시 헤더(에셋 1년 immutable, 서비스워커 no-cache)를 정의해 두었습니다.
